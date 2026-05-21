@@ -1,0 +1,57 @@
+// Producto.java
+public class Producto {
+    private String nombre; private double precio;
+    private int    cantidad; private String categoria;
+
+    public Producto(String nombre, double precio, int cantidad, String categoria) {
+        this.nombre=nombre; this.precio=precio;
+        this.cantidad=cantidad; this.categoria=categoria;
+    }
+
+    public String getNombre()    { return nombre;    }
+    public double getPrecio()    { return precio;    }
+    public int    getCantidad()  { return cantidad;  }
+    public String getCategoria() { return categoria; }
+
+    public void setNombre(String n)    { this.nombre    = n; }
+    public void setPrecio(double p)    { this.precio    = p; }
+    public void setCantidad(int c)     { this.cantidad  = c; }
+    public void setCategoria(String c) { this.categoria = c; }
+
+    public double calcularSubtotal()           { return precio * cantidad; }
+    public void   aplicarDescuento(double pct) { this.precio *= (1.0 - pct/100.0); }
+
+    public void mostrar() {
+        System.out.println('================================');
+        System.out.println('Nombre    : ' + nombre);
+        System.out.println('Categoria : ' + categoria);
+        System.out.printf ('Precio    : $%.2f%n', precio);
+        System.out.println('Cantidad  : ' + cantidad);
+        System.out.printf ('Subtotal  : $%.2f%n', calcularSubtotal());
+    }
+}
+
+// MainProducto.java
+public class MainProducto {
+    public static void main(String[] args) {
+        Producto p1 = new Producto('Laptop',  850.0, 2, 'Tecnologia');
+        Producto p2 = new Producto('Mouse',    15.0, 5, 'Periferico');
+        Producto p3 = new Producto('Teclado',  30.0, 3, 'Periferico');
+
+        Producto[] lista = { p1, p2, p3 };
+        double total=0, mayorSub=0; String nombreMayor='';
+
+        for (Producto p : lista) {
+            p.mostrar();
+            double sub = p.calcularSubtotal();
+            total += sub;
+            if (sub > mayorSub) { mayorSub=sub; nombreMayor=p.getNombre(); }
+        }
+        System.out.println('-- Aplicando 10% descuento a Laptop --');
+        p1.aplicarDescuento(10);
+        System.out.printf('Nuevo precio: $%.2f%n', p1.getPrecio());
+        System.out.println('================================');
+        System.out.printf ('Total general       : $%.2f%n', total);
+        System.out.printf ('Producto mayor valor: %s ($%.2f)%n', nombreMayor, mayorSub);
+    }
+}
