@@ -1,0 +1,60 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// ===== Definición de la Clase Estudiante =====
+class Estudiante {
+private:
+    string nombre;
+    int    edad;
+    string carrera;
+    double promedio;
+
+public:
+    // Constructor parametrizado
+    Estudiante(string nom, int ed, string car, double prom)
+        : nombre(nom), edad(ed), carrera(car), promedio(prom) {}
+
+    // Métodos getter
+    string getNombre()   { return nombre;   }
+    int    getEdad()     { return edad;      }
+    string getCarrera()  { return carrera;   }
+    double getPromedio() { return promedio;  }
+
+    // Métodos setter
+    void setNombre(string n)   { nombre   = n; }
+    void setEdad(int e)        { edad      = e; }
+    void setCarrera(string c)  { carrera   = c; }
+    void setPromedio(double p) { promedio  = p; }
+
+    // Muestra todos los datos del estudiante
+    void mostrar() {
+        cout << '================================' << endl;
+        cout << 'Nombre  : ' << nombre  << endl;
+        cout << 'Edad    : ' << edad    << endl;
+        cout << 'Carrera : ' << carrera << endl;
+        cout << 'Promedio: ' << promedio << endl;
+        cout << 'Estado  : ' << (estaAprobado() ? 'Aprobado' : 'Reprobado') << endl;
+    }
+
+    // Retorna true si el promedio es aprobatorio
+    bool estaAprobado() { return promedio >= 7.0; }
+};
+
+int main() {
+    Estudiante e1('Edison Landeta', 19, 'Software',   8.5);
+    Estudiante e2('Maria Torres',  21, 'Industrial', 5.8);
+    Estudiante e3('Carlos Vega',   20, 'Sistemas',   7.3);
+
+    Estudiante lista[] = { e1, e2, e3 };
+    int aprobados = 0;
+
+    for (Estudiante& e : lista) {
+        e.mostrar();
+        if (e.estaAprobado()) aprobados++;
+    }
+    cout << '================================' << endl;
+    cout << 'Total estudiantes : 3'  << endl;
+    cout << 'Total aprobados   : ' << aprobados << endl;
+    return 0;
+}
