@@ -1,0 +1,59 @@
+#include <iostream>
+#include <string>
+#include <iomanip>
+using namespace std;
+
+class Producto {
+private:
+    string nombre; double precio; int cantidad; string categoria;
+
+public:
+    Producto(string nom, double pre, int cant, string cat)
+        : nombre(nom), precio(pre), cantidad(cant), categoria(cat) {}
+
+    string getNombre()    { return nombre;    }
+    double getPrecio()    { return precio;    }
+    int    getCantidad()  { return cantidad;  }
+    string getCategoria() { return categoria; }
+
+    void setNombre(string n)    { nombre    = n; }
+    void setPrecio(double p)    { precio    = p; }
+    void setCantidad(int c)     { cantidad  = c; }
+    void setCategoria(string c) { categoria = c; }
+
+    double calcularSubtotal()               { return precio * cantidad; }
+    void   aplicarDescuento(double pct)     { precio *= (1.0 - pct/100.0); }
+
+    void mostrar() {
+        cout << fixed << setprecision(2);
+        cout << '================================'       << endl;
+        cout << 'Nombre    : ' << nombre                << endl;
+        cout << 'Categoria : ' << categoria             << endl;
+        cout << 'Precio    : $' << precio               << endl;
+        cout << 'Cantidad  : ' << cantidad              << endl;
+        cout << 'Subtotal  : $' << calcularSubtotal()   << endl;
+    }
+};
+
+int main() {
+    Producto p1('Laptop',  850.0, 2, 'Tecnologia');
+    Producto p2('Mouse',    15.0, 5, 'Periferico');
+    Producto p3('Teclado',  30.0, 3, 'Periferico');
+
+    Producto lista[] = { p1, p2, p3 };
+    double total=0, mayorSub=0; string nombreMayor='';
+
+    for (Producto& p : lista) {
+        p.mostrar();
+        double sub = p.calcularSubtotal();
+        total += sub;
+        if (sub > mayorSub) { mayorSub=sub; nombreMayor=p.getNombre(); }
+    }
+    cout << endl << '-- Aplicando 10% descuento a Laptop --' << endl;
+    p1.aplicarDescuento(10);
+    cout << 'Nuevo precio: $' << p1.getPrecio() << endl;
+    cout << '================================' << endl;
+    cout << 'Total general       : $' << total  << endl;
+    cout << 'Producto mayor valor: ' << nombreMayor << ' ($' << mayorSub << ')' << endl;
+    return 0;
+}
