@@ -1,0 +1,58 @@
+// Clase Estudiante.java
+public class Estudiante {
+    private String nombre;
+    private int    edad;
+    private String carrera;
+    private double promedio;
+
+    public Estudiante(String nombre, int edad, String carrera, double promedio) {
+        this.nombre = nombre; this.edad = edad;
+        this.carrera = carrera; this.promedio = promedio;
+    }
+
+    public String getNombre()   { return nombre;   }
+    public int    getEdad()     { return edad;      }
+    public String getCarrera()  { return carrera;   }
+    public double getPromedio() { return promedio;  }
+
+    public void setNombre(String n)   { this.nombre   = n; }
+    public void setEdad(int e)        { this.edad     = e; }
+    public void setCarrera(String c)  { this.carrera  = c; }
+    public void setPromedio(double p) { this.promedio = p; }
+
+    public boolean estaAprobado() { return promedio >= 7.0; }
+
+    public void mostrar() {
+        System.out.println('================================');
+        System.out.println('Nombre  : ' + nombre);
+        System.out.println('Edad    : ' + edad);
+        System.out.println('Carrera : ' + carrera);
+        System.out.printf ('Promedio: %.2f%n', promedio);
+        System.out.println('Estado  : ' + (estaAprobado() ? 'Aprobado':'Reprobado'));
+    }
+}
+
+// MainEstudiante.java
+public class MainEstudiante {
+    public static void main(String[] args) {
+        Estudiante e1 = new Estudiante('Edison Landeta', 19, 'Software',   8.5);
+        Estudiante e2 = new Estudiante('Maria Torres',  21, 'Industrial', 5.8);
+        Estudiante e3 = new Estudiante('Carlos Vega',   20, 'Sistemas',   7.3);
+
+        Estudiante[] lista = { e1, e2, e3 };
+        int aprobados = 0;
+
+        for (Estudiante e : lista) {
+            e.mostrar();
+            if (e.estaAprobado()) aprobados++;
+        }
+        // Demostrar setter: actualizar promedio de e2
+        System.out.println('-- Actualizando promedio de ' + e2.getNombre() + ' --');
+        e2.setPromedio(7.5);
+        e2.mostrar();
+
+        System.out.println('================================');
+        System.out.println('Total estudiantes : 3');
+        System.out.println('Total aprobados   : ' + aprobados);
+    }
+}
